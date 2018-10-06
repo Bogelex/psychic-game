@@ -1,0 +1,13 @@
+
+  body{
+    background-image:url(../image/Crystalball.jpg);
+    padding:0;
+    margin:0;
+    margin-left: 10px;
+    background-position: center center;
+ background-repeat:  no-repeat;
+ background-attachment: fixed;
+ background-size:  cover;
+ color: aliceblue
+ 
+}
