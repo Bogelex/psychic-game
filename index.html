@@ -16,8 +16,9 @@
                 <p>Choices Left:</p>
                 <p>Your Guess:</p>
               </div>
-    
+        
     <script type="text/javascript">
+    alert("Enter Letter Character (a-z) Only");
     // Creates an array that lists out all of possible letter (all letter a-z).
     var computerChoices = ["a", "b", "c", "d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","x","y","z"];
 
@@ -25,14 +26,14 @@
      var wins = 0;
     var losses = 0;
     var choicesLeft = 9;
-    var userGuess = [];
+    var yourGuess = [];
     
     // This function is run whenever the user presses a key.
     document.onkeyup = function(event) {
 
     // This function is to returns the key identifier
-     var userGuess = event.key;
-    var res = userGuess.toLowerCase();
+     var userGuess = String.fromCharCode (event.keyCode).toLowerCase();
+   
     console.log(userGuess);
     
     
@@ -40,33 +41,24 @@
     var computerGuess = computerChoices[Math.floor(Math.random() * computerChoices.length)];
     console.log(computerGuess);
 
-var reset = function() {
-  choicesLeft = 9;
-  userGuess = [];
-  updatechoicesLeft();
-  updateuserGuess();
-
-}
-
+        yourGuess.push(userGuess); //pushing user guess to your guess
     // This is the compare logic statement to process
-    if (choicesLeft > 0) {
-
-        if (userGuess === computerGuess) {
-                wins ++;
-                choicesLeft = 9;
-                userGuess =[];
+    if (userGuess === computerGuess) {
+            wins++;
+            alert('You got it! You Won!');
+            choicesLeft = 9; //reseting the guesses back to 9 so that the user can play again
+            yourGuess.length = 0; //this removes everything from the guesses so far array, so that the guesses from the previous round don't show
         }
-
-        if(userGuess != computerGuess) {
-
-            choicesLeft = --;
-            userGuess(userGuess);
+        else if (choicesLeft == 0){
+            losses++;
+            alert('you lose, try again.');
+            choicesLeft = 9;
+            yourGuess.length = 0;
         }
-
-        if (choicesLeft === 0){
-            reset();
-        }
-    }
+        else if (userGuess !== computerGuess){
+            choicesLeft--; //decrementing the guesses left
+        
+        }  
 
      //Create a variable to hold our new HTML. our HTML now keeps track of the user and computer guesses
        
@@ -76,7 +68,7 @@ var reset = function() {
                 "<p>Wins: "+ wins +" </p>" +
                 "<p>Losses: "+ losses +"</p>" +
                 "<p>Choices Left:" + choicesLeft +"</p>" +
-                "<p>Your Guess: "+ userGuess +"</p>";
+                "<p>Your Guess: "+ yourGuess +"</p>";
        
        document.getElementById("game").innerHTML = html;
        
